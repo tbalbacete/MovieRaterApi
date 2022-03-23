@@ -18,8 +18,11 @@ namespace MovieRater.WebAPI
     {
         public Startup(IConfiguration configuration)
         {
+            // WHATS UP BONERS!! 
             Configuration = configuration;
         }
+
+        // TeamBuilding 101
 
         public IConfiguration Configuration { get; }
 
