@@ -5,7 +5,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MicroSoft.AspNetCore.Authentication.JwtBearer" Version="5.0.15" />
+    <PackageReference Include="MicroSoft.EntityFrameworkCore.design" Version="5.0.15">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="MicroSoft.EntityFrameworkCore.SqlServer" Version="5.0.15" />
+    <PackageReference Include="MicroSoft.EntityFrameworkCore.Tools" Version="5.0.15">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="MicroSoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.16.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MovieRater.Services\MovieRater.Services.csproj" />
+    <ProjectReference Include="..\MovieRater.Models\MovieRater.Models.csproj" />
+    <ProjectReference Include="..\MovieRater.Data\MovieRater.Data.csproj" />
   </ItemGroup>
 
 </Project>
