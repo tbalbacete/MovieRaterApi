@@ -9,22 +9,13 @@ namespace MovieRater.Data
 {
     public class ApplicationDbContext : DbContext
     {
-        public DbSet<MovieEntity> Movies { get; set; }
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base (options)
+        {
+        }
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.Entity<MovieEntity>()
-        .HasOne(n => n.Owner)
-        .WithMany(p => p.Movies)
-        .HasForeignKey(n => n.OwnerId);
+        public DbSet<ShowEntity> Users { get; set; }
+        public DbSet<ShowEntity> Shows { get; set; }
+        public DbSet<ShowEntity> Movies { get; set; }
+        public DbSet<ShowEntity> Ratings { get; set; }
     }
-        
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) 
-    : base(options)
-    {
-        
-    }
-    
-    }
-
 }
