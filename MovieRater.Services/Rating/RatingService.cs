@@ -9,7 +9,7 @@ using MovieRater.Models.Rating;
 
 namespace MovieRater.Services.Rating
 {
-    public class RatingService
+    public class RatingService: IRatingService
     {
         private readonly ApplicationDbContext _dbContext;
 
@@ -24,26 +24,23 @@ namespace MovieRater.Services.Rating
             {
                 Rating = request.Rating,
                 CreatedUtc = DateTimeOffset.Now,
-                MovieId = request.MovieId,
-                ShowId = request.ShowId
             };
+
+            if (request.MovieId > 0)
+            {
+                ratingEntity.MovieId = request.MovieId;
+            }
+
+            if (request.ShowId > 0)
+            {
+                ratingEntity.ShowId = request.ShowId;
+            }
 
             _dbContext.Ratings.Add(ratingEntity);
 
             var numberOfChanges = await _dbContext.SaveChangesAsync();
             return numberOfChanges == 1;
-        }
 
-        public async Task<RatingDetail> GetAllRatingsAsync(int ratingId)
-        {
-            var ratings = await _dbContext.Ratings.Select(entity => new RatingListItem
-            {
-                Id = entity.Id,
-                Movie = entity.Movie,
-                Show = entity.Show
-            }).ToListAsync();
-
-            return ratings;
         }
     }
 }

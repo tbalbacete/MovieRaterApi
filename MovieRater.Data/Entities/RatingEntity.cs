@@ -13,12 +13,15 @@ namespace MovieRater.Data.Entities
         public int Id {get; set;}
 
         [ForeignKey(nameof(Movie))]
-        public int MovieId {get; set;}
+
+        public int? MovieId {get; set;}
         public MovieEntity Movie {get; set;}
 
+
         [ForeignKey(nameof(Show))]
-        public int ShowId {get; set;}
+        public int? ShowId {get; set;}
         public ShowEntity Show {get; set;}
+
 
         [Required]
         public int Rating {get; set;}

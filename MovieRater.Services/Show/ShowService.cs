@@ -12,18 +12,11 @@ using MovieRater.Models.Show;
 
 namespace MovieRater.Services.Show
 {
-    public class ShowService
+    public class ShowService : IShowService
     {
-        private readonly int _userId;
         private readonly ApplicationDbContext _dbContext;
-        public ShowService(IHttpContextAccessor httpContextAccessor, ApplicationDbContext dbContext)
+        public ShowService(ApplicationDbContext dbContext)
         {
-            var userClaims = httpContextAccessor.HttpContext.User.Identity as ClaimsIdentity;
-            var value = userClaims.FindFirst("Id")?.Value;
-            var validId = int.TryParse(value, out _userId);
-            if (!validId)
-                throw new Exception("Attempted to build ShowService without User Id claim.");
-
                 _dbContext = dbContext;
         }
 
@@ -34,7 +27,7 @@ namespace MovieRater.Services.Show
                 Title = request.Title,
                 Description = request.Description,
                 Created = DateTimeOffset.Now,
-                OwnerId = _userId
+                OwnerId = 1
             };
 
             _dbContext.Shows.Add(showEntity);
@@ -46,7 +39,7 @@ namespace MovieRater.Services.Show
         public async Task<IEnumerable<ShowListItem>> GetAllShowsAsync()
         {
             var shows = await _dbContext.Shows
-                .Where(entity => entity.OwnerId == _userId)
+                .Where(entity => entity.OwnerId == 1)
                 .Select(entity => new ShowListItem
                 {
                     Id = entity.Id,
@@ -62,7 +55,7 @@ namespace MovieRater.Services.Show
         {
             var showEntity = await _dbContext.Shows
                 .FirstOrDefaultAsync(e =>
-                    e.Id == showId && e.OwnerId == _userId
+                    e.Id == showId && e.OwnerId == 1
                 );
             return showEntity is null ? null : new ShowDetail
             {
@@ -78,7 +71,7 @@ namespace MovieRater.Services.Show
         {
             var showEntity = await _dbContext.Shows.FindAsync(request.Id);
 
-            if (showEntity?.OwnerId != _userId)
+            if (showEntity?.OwnerId != 1)
                 return false;
             
             showEntity.Title = request.Title;
@@ -94,7 +87,7 @@ namespace MovieRater.Services.Show
         {
             var showEntity = await _dbContext.Shows.FindAsync(showId);
 
-            if (showEntity?.OwnerId != _userId)
+            if (showEntity?.OwnerId != 1)
                 return false;
 
             _dbContext.Shows.Remove(showEntity);
