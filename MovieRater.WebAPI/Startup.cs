@@ -17,6 +17,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 using MovieRater.Data;
+using MovieRater.Services.Movie;
+using MovieRater.Services.Rating;
 using MovieRater.Services.Show;
 
 
@@ -41,48 +43,51 @@ namespace MovieRater.WebAPI
             services.AddHttpContextAccessor();
 
             services.AddScoped<IShowService, ShowService>();
+            services.AddScoped<IMovieService, MovieService>();
+            services.AddScoped<IRatingService, RatingService>();
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
-            {
-                options.RequireHttpsMetadata = false;
-                options.SaveToken = true;
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidIssuer = Configuration["Jwt:Issuer"],
-                    ValidAudience = Configuration["Jwt:Audience"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
-                };
-            });
+
+            // services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            // {
+            //     options.RequireHttpsMetadata = false;
+            //     options.SaveToken = true;
+            //     options.TokenValidationParameters = new TokenValidationParameters
+            //     {
+            //         ValidateIssuer = true,
+            //         ValidateAudience = true,
+            //         ValidIssuer = Configuration["Jwt:Issuer"],
+            //         ValidAudience = Configuration["Jwt:Audience"],
+            //         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+            //     };
+            // });
             
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ElevenNote.WebAPI", Version = "v1" });
-                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
-                {
-                    Name = "Authorization",
-                    Type = SecuritySchemeType.ApiKey,
-                    Scheme = "Bearer",
-                    BearerFormat = "JWT",
-                    In = ParameterLocation.Header,
-                    Description = "JWT Authorization header using the Bearer scheme. \n\n Enter 'Bearrer' [space] and then your token in the text input below. \n\n Example: \"Bearer 12345abcdef\""
-                });
-                c.AddSecurityRequirement(new OpenApiSecurityRequirement
-                {
-                    {
-                        new OpenApiSecurityScheme
-                        {
-                            Reference = new OpenApiReference
-                            {
-                                Type = ReferenceType.SecurityScheme,
-                                Id = "Bearer"
-                            }
-                        },
-                        new string[] {}
-                    }
-                });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "MovieRater.WebAPI", Version = "v1" });
+                // c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+                // {
+                //     Name = "Authorization",
+                //     Type = SecuritySchemeType.ApiKey,
+                //     Scheme = "Bearer",
+                //     BearerFormat = "JWT",
+                //     In = ParameterLocation.Header,
+                //     Description = "JWT Authorization header using the Bearer scheme. \n\n Enter 'Bearer' [space] and then your token in the text input below. \n\n Example: \"Bearer 12345abcdef\""
+                // });
+                // c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                // {
+                //     {
+                //         new OpenApiSecurityScheme
+                //         {
+                //             Reference = new OpenApiReference
+                //             {
+                //                 Type = ReferenceType.SecurityScheme,
+                //                 Id = "Bearer"
+                //             }
+                //         },
+                //         new string[] {}
+                //     }
+                // });
             });
         }
 

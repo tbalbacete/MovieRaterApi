@@ -11,7 +11,6 @@ using MovieRater.Services.Movie;
 namespace MovieRater.WebAPI.Controllers
 {
     
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class MovieController : ControllerBase
@@ -41,15 +40,15 @@ namespace MovieRater.WebAPI.Controllers
         : NotFound();
     }
 
-    [HttpGet("{rating:int}")]
-    public async Task<IActionResult> GetMovieByRating([FromRoute] int rating)
-    {
-        var detail = await _movieService.GetMovieByRatingAsync(rating);
+    // [HttpGet("{rating:int}")]
+    // public async Task<IActionResult> GetMovieByRating([FromRoute] int rating)
+    // {
+    //     var detail = await _movieService.GetMovieByRatingAsync(rating);
 
-        return detail is not null
-        ? Ok(detail)
-        : NotFound();
-    }
+    //     return detail is not null
+    //     ? Ok(detail)
+    //     : NotFound();
+    // }
 
 
     //Post api/Movie
