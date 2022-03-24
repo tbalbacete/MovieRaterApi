@@ -10,7 +10,7 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2"/>
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.16.0"/>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.15"/>
-    <PackageReference Include="MicroSoft.EntityFrameworkCore.Tools" Version="5.0.15">
+    <PackageReference Include="MicroSoft.EntityFrameworkCore.Tools" Version="5.0.15"/>
   </ItemGroup>
   
   <ItemGroup>
@@ -18,4 +18,5 @@
     <ProjectReference Include="..\MovieRater.Models\MovieRater.Models.csproj"/>
     <ProjectReference Include="..\MovieRater.Data\MovieRater.Data.csproj"/>
   </ItemGroup>
+    
 </Project>
