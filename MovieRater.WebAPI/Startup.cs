@@ -60,6 +60,9 @@ namespace MovieRater.WebAPI
             //         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
             //     };
             // });
+
+
+            // comment
             
             services.AddControllers();
             services.AddSwaggerGen(c =>
