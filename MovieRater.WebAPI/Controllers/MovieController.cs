@@ -52,7 +52,7 @@ namespace MovieRater.WebAPI.Controllers
 
 
     //Post api/Movie
-    [HttpPost]
+    [HttpPost("Add")]
     public async Task<IActionResult> CreateMovie([FromBody] MovieCreate request)
     {
         if (!ModelState.IsValid)
