@@ -15,12 +15,11 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Microsoft.EntityFrameworkCore;
 using MovieRater.Data;
 using MovieRater.Services.Movie;
 using MovieRater.Services.Rating;
 using MovieRater.Services.Show;
-
+using MovieRater.Services.User;
 
 namespace MovieRater.WebAPI
 {
@@ -45,6 +44,7 @@ namespace MovieRater.WebAPI
             services.AddScoped<IShowService, ShowService>();
             services.AddScoped<IMovieService, MovieService>();
             services.AddScoped<IRatingService, RatingService>();
+            services.AddScoped<IUserService, UserService>();
 
 
             // services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
@@ -60,6 +60,9 @@ namespace MovieRater.WebAPI
             //         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
             //     };
             // });
+
+
+            // comment
             
             services.AddControllers();
             services.AddSwaggerGen(c =>

@@ -27,7 +27,7 @@ namespace MovieRater.WebAPI
             return Ok(shows);
         }
 
-        [HttpPost]
+        [HttpPost("Add")]
         public async Task<IActionResult> CreateShow([FromBody] ShowCreate request)
         {
             if (!ModelState.IsValid)

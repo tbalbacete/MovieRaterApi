@@ -24,14 +24,23 @@ namespace MovieRater.Services.Rating
             {
                 Rating = request.Rating,
                 CreatedUtc = DateTimeOffset.Now,
-                MovieId = request.MovieId,
-                ShowId = request.ShowId
             };
+
+            if (request.MovieId > 0)
+            {
+                ratingEntity.MovieId = request.MovieId;
+            }
+
+            if (request.ShowId > 0)
+            {
+                ratingEntity.ShowId = request.ShowId;
+            }
 
             _dbContext.Ratings.Add(ratingEntity);
 
             var numberOfChanges = await _dbContext.SaveChangesAsync();
             return numberOfChanges == 1;
+
         }
     }
 }

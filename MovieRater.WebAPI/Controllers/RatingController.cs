@@ -19,7 +19,7 @@ namespace MovieRater.WebAPI.Controllers
             _ratingService = ratingService;
         } 
 
-        [HttpPost("Add Rating")]
+        [HttpPost("Add")]
         public async Task<IActionResult> CreateRating([FromForm] RatingCreate request)
         {
             if(!ModelState.IsValid)

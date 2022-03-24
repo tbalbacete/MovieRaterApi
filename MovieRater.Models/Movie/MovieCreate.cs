@@ -15,5 +15,7 @@ namespace MovieRater.Models.Movie
         [Required]
         [MaxLength(8000, ErrorMessage = "{0} must contain no more than {1} character.")]
         public string Description { get; set; }
+        [Required]
+        public string Genre { get; set; }
     }
 }

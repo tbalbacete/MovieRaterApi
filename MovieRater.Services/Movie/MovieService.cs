@@ -14,16 +14,9 @@ namespace MovieRater.Services.Movie
 {
     public class MovieService : IMovieService
     {
-        private readonly int _userId;
         private readonly ApplicationDbContext _dbContext;
-        public MovieService(IHttpContextAccessor httpContextAccessor, ApplicationDbContext dbContext)
+        public MovieService(ApplicationDbContext dbContext)
         {
-            var movieClaims = httpContextAccessor.HttpContext.User.Identity as ClaimsIdentity;
-            var value = movieClaims.FindFirst("Id")?.Value;
-            var validId = int.TryParse(value, out _userId);
-            if (!validId)
-            throw new Exception("Attempted to build MovieService without Movie Id claim.");
-
             _dbContext = dbContext;
         }
 
@@ -33,8 +26,9 @@ namespace MovieRater.Services.Movie
             {
                 Title = request.Title,
                 Description = request.Description,
+                Genre = request.Genre,
                 CreatedUtc = DateTimeOffset.Now,
-                OwnerId = _userId
+                OwnerId = 1
             };
 
             _dbContext.Movies.Add(movieEntity);
@@ -46,11 +40,12 @@ namespace MovieRater.Services.Movie
         public async Task<IEnumerable<MovieListItem>> GetAllMoviesAsync()
         {
             var movies = await _dbContext.Movies
-                .Where(entity => entity.OwnerId == _userId)
+                .Where(entity => entity.OwnerId == 1)
                 .Select(entity => new MovieListItem
                 {
                     Id = entity.Id,
                     Title = entity.Title,
+                    Genre = entity.Genre,
                     CreatedUtc = entity.CreatedUtc
                 })
                 .ToListAsync();
@@ -62,13 +57,14 @@ namespace MovieRater.Services.Movie
         {
             var MovieEntity = await _dbContext.Movies
                 .FirstOrDefaultAsync(e =>
-                    e.Id == MovieId && e.OwnerId == _userId
+                    e.Id == MovieId && e.OwnerId == 1
                 );
             return MovieEntity is null ? null : new MovieDetail
             {
                 Id = MovieEntity.Id,
                 Title = MovieEntity.Title,
                 Description = MovieEntity.Description,
+                Genre = MovieEntity.Genre,
                 CreatedUtc = MovieEntity.CreatedUtc,
                 ModifiedUtc = MovieEntity.ModifiedUtc
             };
@@ -78,7 +74,7 @@ namespace MovieRater.Services.Movie
         {
             var MovieEntity = await _dbContext.Movies.FindAsync(request.Id);
 
-            if (MovieEntity?.OwnerId != _userId)
+            if (MovieEntity?.OwnerId != 1)
                 return false;
             
             MovieEntity.Title = request.Title;
@@ -94,7 +90,7 @@ namespace MovieRater.Services.Movie
         {
             var MovieEntity = await _dbContext.Movies.FindAsync(MovieId);
 
-            if (MovieEntity?.OwnerId != _userId)
+            if (MovieEntity?.OwnerId != 1)
                 return false;
 
             _dbContext.Movies.Remove(MovieEntity);
