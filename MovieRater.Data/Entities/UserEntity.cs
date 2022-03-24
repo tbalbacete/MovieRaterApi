@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 
+
 namespace MovieRater.Data.Entities
 {
     public class UserEntity
@@ -23,5 +24,6 @@ namespace MovieRater.Data.Entities
 
         [Required]
         public DateTime DateCreated {get; set;}
+        public List<MovieEntity> Movies { get; set; }
     }
 }
