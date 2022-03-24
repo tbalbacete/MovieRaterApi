@@ -10,13 +10,20 @@ namespace MovieRater.Data.Entities
     {
         [Key]
         public int Id { get; set; }
+
+        [Required]
         public int OwnerId { get; set; }
+        public UserEntity Owner {get; set;}
+
         [Required]
         public string Title { get; set; }
+
         [Required]
         public string Description { get; set; }
         [Required]
         public DateTimeOffset Created { get; set; }
         public DateTimeOffset? Updated { get; set; }
+
+        public RatingEntity Rating {get; set;}
     }
 }

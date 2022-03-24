@@ -13,9 +13,9 @@ namespace MovieRater.Data
         {
         }
 
-        public DbSet<ShowEntity> Users { get; set; }
+        public DbSet<UserEntity> Users { get; set; }
         public DbSet<ShowEntity> Shows { get; set; }
-        public DbSet<ShowEntity> Movies { get; set; }
-        public DbSet<ShowEntity> Ratings { get; set; }
+        public DbSet<MovieEntity> Movies { get; set; }
+        public DbSet<RatingEntity> Ratings { get; set; }
     }
 }

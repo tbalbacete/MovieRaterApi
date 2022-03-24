@@ -25,5 +25,6 @@ namespace MovieRater.Data.Entities
         [Required]
         public DateTime DateCreated {get; set;}
         public List<MovieEntity> Movies { get; set; }
+        public List<ShowEntity> Shows {get; set;}
     }
 }

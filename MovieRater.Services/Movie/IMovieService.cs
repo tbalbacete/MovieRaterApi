@@ -12,7 +12,7 @@ namespace MovieRater.Services.Movie
         Task<bool> CreateMovieAsync(MovieCreate request);
         Task<IEnumerable<MovieListItem>> GetAllMoviesAsync();
         Task<MovieDetail> GetMovieByIdAsync(int movieId);
-        Task<MovieDetail> GetMovieByRatingAsync(int rating);
+        // Task<MovieDetail> GetMovieByRatingAsync(int rating);
         Task<bool> UpdateMovieAsync(MovieUpdate request);
         Task<bool> DeleteMovieAsync(int movieId);
     }

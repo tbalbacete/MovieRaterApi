@@ -12,7 +12,7 @@ using MovieRater.Models.Show;
 
 namespace MovieRater.Services.Show
 {
-    public class ShowService
+    public class ShowService : IShowService
     {
         private readonly int _userId;
         private readonly ApplicationDbContext _dbContext;
